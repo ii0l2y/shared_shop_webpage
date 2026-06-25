@@ -51,6 +51,8 @@ body::before{
   box-shadow:var(--shadow);
   padding:28px;
   margin:20px 0;
+
+box-shadow:none;
 }
 
 .hero{
@@ -93,6 +95,13 @@ p{color:var(--muted);line-height:1.7;}
   border-left:6px solid var(--accent);
   padding:16px;
   border-radius:18px;
+
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+  transition:.25s;
+}
+
+.feature:hover{
+  transform:translateY(-4px);
 }
 
 .screenshot-grid{
@@ -190,6 +199,41 @@ footer{
 @media(max-width:768px){
   .hero{grid-template-columns:1fr;}
 }
+
+/* =========================
+   ボタン・カードの共通アニメーション強化
+========================= */
+
+/* ボタン押下アニメーション */
+.btn {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.btn:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: 0 3px 0 #d96f00;
+}
+
+/* カードも軽く押せる感じに統一 */
+.feature,
+.stack-card,
+.arch-card,
+.screenshot-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* hoverで浮く */
+.feature:hover,
+.stack-card:hover,
+.arch-card:hover,
+.screenshot-card:hover {
+  transform: translateY(-4px);
+}
+
 </style>
 </head>
 
@@ -201,13 +245,15 @@ footer{
 <section class="card hero fade">
   <div>
     <h1>Shared Shop Application</h1>
-    <p>ECサイトの基本機能を実装したSpring Boot学習用アプリケーション。</p>
+    <p>ECサイトの基本機能をひと通り実装した学習用Webアプリ。
+会員管理・商品管理・買い物かご・注文フローを備えた、 Spring Boot 製のフルスタックサンプルリポジトリです。</p>
 
     <div class="btn-group">
       <a class="btn" href="https://github.com/cac-it-training-2026/shared-shop-app-shared-shop-a004/tree/dev">GitHub</a>
       <a class="btn secondary" href="#screens">画面一覧</a>
     </div>
   </div>
+
 </section>
 
 <!-- FEATURES -->
@@ -406,5 +452,68 @@ const obs=new IntersectionObserver(entries=>{
 els.forEach(el=>obs.observe(el));
 </script>
 
+<div id="imageModal" class="modal">
+  <span class="close">&times;</span>
+  <img id="modalImg" class="modal-content">
+</div>
+
 </body>
+
+<script>
+/* =========================
+   画面一覧 画像モーダル（拡大表示）
+========================= */
+
+document.querySelectorAll(".screenshot-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const img = card.querySelector("img");
+    if (!img) return;
+
+    // すでに開いてたら消す
+    const old = document.getElementById("imgModal");
+    if (old) old.remove();
+
+    // 背景（黒いオーバーレイ）
+    const modal = document.createElement("div");
+    modal.id = "imgModal";
+    modal.style.cssText = `
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.85);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      cursor:pointer;
+    `;
+
+    // 拡大画像
+    const bigImg = document.createElement("img");
+    bigImg.src = img.src;
+    bigImg.style.cssText = `
+      max-width:90vw;
+      max-height:90vh;
+      border-radius:16px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.5);
+    `;
+
+    modal.appendChild(bigImg);
+    document.body.appendChild(modal);
+
+    // クリックで閉じる
+    modal.addEventListener("click", () => {
+      modal.remove();
+    });
+  });
+});
+
+/* ESCでも閉じる */
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    const modal = document.getElementById("imgModal");
+    if (modal) modal.remove();
+  }
+});
+</script>
+
 </html>
