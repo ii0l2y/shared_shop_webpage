@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shared Shop Application</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --main:#FFF1B8;
+  --sub:#FFE08A;
+  --accent:#FF8A00;
+
+  --navy:#1f2a44;
+  --muted:#5a5a5a;
+
+  --white:#ffffff;
+  --shadow:0 10px 25px rgba(0,0,0,.12);
+  --radius:26px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:"M PLUS Rounded 1c",sans-serif;
+  background:var(--main);
+  color:var(--navy);
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.35) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 40%, rgba(255,255,255,.25) 0 2px, transparent 3px),
+    radial-gradient(circle at 40% 80%, rgba(255,255,255,.25) 0 2px, transparent 3px);
+  opacity:.4;
+  pointer-events:none;
+}
+
+.container{max-width:1100px;margin:auto;padding:20px;}
+
+.card{
+  background:#fff;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:28px;
+  margin:20px 0;
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  align-items:center;
+}
+
+h1{font-size:2.6rem;}
+p{color:var(--muted);line-height:1.7;}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:12px 18px;
+  border-radius:999px;
+  font-weight:700;
+  text-decoration:none;
+  background:var(--accent);
+  color:#fff;
+  box-shadow:0 6px 0 #d96f00;
+}
+
+.btn.secondary{
+  background:#fff;
+  color:var(--navy);
+  border:2px solid var(--accent);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:14px;
+}
+
+.feature{
+  background:#fff8e6;
+  border-left:6px solid var(--accent);
+  padding:16px;
+  border-radius:18px;
+}
+
+.screenshot-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:14px;
+}
+
+.screenshot-card{
+  background:#fff;
+  border-radius:18px;
+  overflow:hidden;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+}
+
+.screenshot-card img{
+  width:100%;
+  aspect-ratio:16/10;
+  object-fit:cover;
+}
+
+.caption{
+  padding:10px;
+  font-size:.85rem;
+  color:var(--muted);
+}
+
+.stack-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+}
+
+.stack-card{
+  background:#fff;
+  padding:18px;
+  border-radius:18px;
+  box-shadow:var(--shadow);
+}
+
+.badge{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:999px;
+  background:#fff3c4;
+  margin:4px 4px 0 0;
+  font-size:.75rem;
+}
+
+.arch-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:14px;
+}
+
+.arch-card{
+  background:#fff;
+  padding:16px;
+  border-radius:18px;
+  box-shadow:var(--shadow);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  border-radius:18px;
+  overflow:hidden;
+}
+
+th,td{
+  padding:10px;
+  text-align:center;
+  border-bottom:1px solid #eee;
+}
+
+th{background:#fff2b0;}
+
+footer{
+  text-align:center;
+  padding:30px;
+}
+
+.fade{
+  opacity:0;
+  transform:translateY(20px);
+  transition:.6s ease;
+}
+
+.fade.show{
+  opacity:1;
+  transform:none;
+}
+
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HERO -->
+<section class="card hero fade">
+  <div>
+    <h1>Shared Shop Application</h1>
+    <p>ECサイトの基本機能を実装したSpring Boot学習用アプリケーション。</p>
+
+    <div class="btn-group">
+      <a class="btn" href="https://github.com/cac-it-training-2026/shared-shop-app-shared-shop-a004/tree/dev">GitHub</a>
+      <a class="btn secondary" href="#screens">画面一覧</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="card fade">
+<h2>主な機能</h2>
+
+<div class="grid">
+
+<div class="feature" style="background:#fff3e6; border-left:6px solid #FF8A00;">
+  <span style="font-size:1.2rem; font-weight:700;">📁 商品管理</span>
+  <p class="feature-desc">管理者が商品の登録・更新・削除や画像管理を実施可能</p>
+</div>
+
+<div class="feature" style="background:#fff3e6; border-left:6px solid #FF8A00;">
+  <span style="font-size:1.2rem; font-weight:700;">🔍 商品一覧・検索</span>
+  <p class="feature-desc">カテゴリ検索や並び替えに対応し、新着順・売れ筋順で商品を表示できる。</p>
+</div>
+
+<div class="feature" style="background:#fff3e6; border-left:6px solid #FF8A00;">
+  <span style="font-size:1.2rem; font-weight:700;">🛒 買い物かご</span>
+  <p class="feature-desc">商品追加や数量変更に対応し、在庫状況を確認しながら管理できる。</p>
+</div>
+
+<div class="feature" style="background:#fff3e6; border-left:6px solid #FF8A00;">
+  <span style="font-size:1.2rem; font-weight:700;">📦 注文フロー</span>
+  <p class="feature-desc">配送先入力から注文確定までを4ステップで進める購入機能。</p>
+</div>
+
+<div class="feature" style="background:#fff3e6; border-left:6px solid #FF8A00;">
+  <span style="font-size:1.2rem; font-weight:700;">📒 注文履歴・管理</span>
+  <p class="feature-desc">注文履歴の確認に対応し、管理者は全注文を管理できる。</p>
+</div>
+
+<div class="feature" style="background:#fff3e6; border-left:6px solid #FF8A00;">
+  <span style="font-size:1.2rem; font-weight:700;">👤 会員管理</span>
+  <p class="feature-desc">会員情報の登録・編集に対応し、管理者は会員管理を行える。</p>
+</div>
+
+<div class="feature" style="background:#fff7c7; border-left:6px solid #F7C600;">
+  <span style="font-size:1.2rem; font-weight:700;">🔐 ログイン管理</span>
+  <p class="feature-desc">ログイン失敗回数を記録し、5回連続で失敗すると30分間ロックする。</p>
+</div>
+
+<div class="feature" style="background:#fff7c7; border-left:6px solid #F7C600;">
+  <span style="font-size:1.2rem; font-weight:700;">💬 お問い合わせ</span>
+  <p class="feature-desc">アンケート形式で管理者へ意見を送信し、内容を管理画面で確認できる。</p>
+</div>
+
+<div class="feature" style="background:#fff7c7; border-left:6px solid #F7C600;">
+  <span style="font-size:1.2rem; font-weight:700;">⭐ レビュー</span>
+  <p class="feature-desc">アバターがレビューを表示し、メリット・デメリットや星評価を確認できる。</p>
+</div>
+
+<div class="feature" style="background:#fff7c7; border-left:6px solid #F7C600;">
+  <span style="font-size:1.2rem; font-weight:700;">🎁 ポイント機能</span>
+  <p class="feature-desc">購入金額の1％をポイント付与し、商品や福袋の購入に利用できる。</p>
+</div>
+
+<div class="feature" style="background:#fff7c7; border-left:6px solid #F7C600;">
+  <span style="font-size:1.2rem; font-weight:700;">⚠️ かご落ち通知</span>
+  <p class="feature-desc">カート内の商品を一定時間放置すると通知を表示して購入を促す。</p>
+</div>
+
+<div class="feature" style="background:#fff7c7; border-left:6px solid #F7C600;">
+  <span style="font-size:1.2rem; font-weight:700;">🎂 誕生日祝福</span>
+  <p class="feature-desc">誕生日当日に祝福ポップアップを表示し、特別な演出を行う。</p>
+</div>
+
+<div class="feature" style="background:#fff7c7; border-left:6px solid #F7C600;">
+  <span style="font-size:1.2rem; font-weight:700;">🎊 福袋機能</span>
+  <p class="feature-desc">価格別の福袋を販売し、商品をランダムに組み合わせて提供する。</p>
+</div>
+
+<div class="feature" style="background:#fff7c7; border-left:6px solid #F7C600;">
+  <span style="font-size:1.2rem; font-weight:700;">🛡️ アクセス権限管理</span>
+  <p class="feature-desc">管理者と一般顧客の権限を分離し、機能や画面へのアクセスを制御する。</p>
+</div>
+
+<div class="feature" style="background:#fff7c7; border-left:6px solid #F7C600;">
+  <span style="font-size:1.2rem; font-weight:700;">🔮 占い・おすすめ</span>
+  <p class="feature-desc">占い結果に応じた商品を表示し、当日限定の割引販売を行う。</p>
+
+</div>
+</section>
+
+<!-- SCREENSHOTS -->
+<section class="card fade" id="screens">
+<h2>画面一覧</h2>
+
+<div class="screenshot-grid">
+
+<div class="screenshot-card"><img src="image_ログイン画面.png"><div class="caption">ログイン画面</div></div>
+<div class="screenshot-card"><img src="image_トップ画面.png"><div class="caption">トップ画面</div></div>
+<div class="screenshot-card"><img src="image_商品詳細.png"><div class="caption">商品詳細</div></div>
+<div class="screenshot-card"><img src="image_買い物かご.png"><div class="caption">買い物かご</div></div>
+<div class="screenshot-card"><img src="image_注文確認.png"><div class="caption">注文確認</div></div>
+<div class="screenshot-card"><img src="image_アンケート.png"><div class="caption">お問い合わせ</div></div>
+<div class="screenshot-card"><img src="image_レビュー.png"><div class="caption">レビュー</div></div>
+<div class="screenshot-card"><img src="image_かご落ち.png"><div class="caption">かご落ち通知</div></div>
+<div class="screenshot-card"><img src="image_誕生日.png"><div class="caption">誕生日祝福</div></div>
+<div class="screenshot-card"><img src="image_福袋.png"><div class="caption">福袋</div></div>
+<div class="screenshot-card"><img src="image_占い・おすすめ.png"><div class="caption">占い・おすすめ</div></div>
+
+</div>
+</section>
+
+<!-- STACK（修正版） -->
+<section class="card fade">
+<h2>技術スタック</h2>
+
+<div class="stack-grid">
+
+<div class="stack-card">
+<h3>Backend</h3>
+<span class="badge">Java</span>
+<span class="badge">Spring Boot</span>
+<span class="badge">Spring MVC</span>
+<span class="badge">Spring Data JPA</span>
+<span class="badge">Jakarta EE</span>
+<span class="badge">Bean Validation</span>
+<span class="badge">Servlet Filter</span>
+<span class="badge">Maven</span>
+</div>
+
+<div class="stack-card">
+<h3>Frontend</h3>
+<span class="badge">Thymeleaf</span>
+<span class="badge">HTML5</span>
+<span class="badge">CSS3</span>
+<span class="badge">jQuery 1.10</span>
+</div>
+
+<div class="stack-card">
+<h3>Database</h3>
+<span class="badge">Oracle DB</span>
+<span class="badge">Sequence Generator</span>
+<span class="badge">Soft Delete</span>
+</div>
+
+<div class="stack-card">
+<h3>Design Pattern</h3>
+<span class="badge">PRG Pattern</span>
+<span class="badge">Session管理</span>
+<span class="badge">Repository Pattern</span>
+<span class="badge">Service Layer</span>
+<span class="badge">Bean Conversion</span>
+</div>
+
+</div>
+</section>
+
+<!-- ARCH（修正版） -->
+<section class="card fade">
+<h2>設計のポイント</h2>
+
+<div class="arch-grid">
+
+<div class="arch-card">二重送信対策</div>
+<div class="arch-card">入力フォームの保持</div>
+<div class="arch-card">在庫管理（2段階チェック）</div>
+<div class="arch-card">注文時単価の保存</div>
+<div class="arch-card">論理削除</div>
+<div class="arch-card">BeanToolsサービス</div>
+
+</div>
+</section>
+
+<!-- TABLE -->
+<section class="card fade">
+<h2>権限マトリクス</h2>
+
+<table>
+<tr><th>機能</th><th>一般</th><th>運用</th><th>管理者</th></tr>
+<tr><td>商品閲覧</td><td>○</td><td>○</td><td>○</td></tr>
+<tr><td>購入</td><td>○</td><td>×</td><td>×</td></tr>
+<tr><td>商品管理</td><td>×</td><td>○</td><td>×</td></tr>
+<tr><td>注文管理</td><td>×</td><td>○</td><td>×</td></tr>
+<tr><td>会員管理</td><td>×</td><td>○</td><td>○</td></tr>
+</table>
+</section>
+
+<!-- FOOTER -->
+<footer class="fade">
+<p>Shared Shop Application</p>
+</footer>
+
+</div>
+
+<script>
+const els=document.querySelectorAll(".fade");
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add("show");
+  });
+});
+els.forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>
